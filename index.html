@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lambda 编程语言 - 下载中心</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background: #1a1a2e;
+            color: #eee;
+            font-family: "Microsoft YaHei", sans-serif;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .content{
+            max-width: 650px;
+            width: 100%;
+        }
+        h1{
+            font-size: 42px;
+            margin-bottom: 15px;
+            color: #4fc3f7;
+        }
+        .line{
+            border: 1px solid #444;
+            margin: 20px auto;
+            width: 80%;
+        }
+        .desc{
+            font-size: 18px;
+            color: #ccc;
+            margin: 20px 0 30px;
+            line-height: 1.8;
+        }
+        /* 模块标题 */
+        .module-title {
+            font-size: 22px;
+            color: #81d4fa;
+            margin: 40px 0 20px;
+        }
+        /* 通用下载按钮 */
+        .download-btn{
+            display: inline-block;
+            padding: 14px 28px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            margin: 0 10px 20px;
+            transition: background 0.2s ease;
+        }
+        /* APP 按钮样式（绿色） */
+        .app-btn {
+            background: #28a745;
+        }
+        .app-btn:hover{
+            background: #218838;
+        }
+        /* 源码按钮样式（蓝色） */
+        .source-btn {
+            background: #0288d1;
+        }
+        .source-btn:hover{
+            background: #0277bd;
+        }
+        .icon-img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            margin: 15px auto;
+        }
+        .version {
+            color: #aaa;
+            margin-top: 20px;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+        .tip {
+            color: #888;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <h1>Lambda 编程语言</h1>
+        <div class="line"></div>
+        <p class="desc">自研轻量解释型语言<br>语法简洁 · 运行安全 · 完全开源</p>
+
+        <!-- 1. 客户端 APP 下载区 -->
+        <h2 class="module-title">客户端程序下载</h2>
+        <a href="lambda.zip" download class="download-btn app-btn">下载APP</a>
+        <a href="Lambda2026.zip" download class="download-btn app-btn">下载源代码</a>
+
+        <!-- 2. 开源源代码下载区 -->
+        <h2 class="module-title">开源源代码下载</h2>
+
+        <div class="version">
+            当前版本: v0.0<br>
+            内置 help() 函数，一键查看完整语法手册
+        </div>
+        <p class="tip">静态站点 · 永久免费托管于 GitHub Pages</p>
+    </div>
+</body>
+</html>
