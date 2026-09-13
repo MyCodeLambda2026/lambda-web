@@ -1,0 +1,55 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "Lambda Custom Language",
+    "scopeName": "source.lambda",
+    "fileTypes": [".lambda"],
+    "patterns": [
+        { "include": "#comments" },
+        { "include": "#strings" },
+        { "include": "#builtins_classes" },
+        { "include": "#builtins_functions" },
+        { "include": "#keywords" }
+    ],
+    "repository": {
+        "comments": {
+            "patterns": [
+                {
+                    "match": ">>.*",
+                    "name": "comment.line.double‑greater.lambda"
+                }
+            ]
+        },
+        "strings": {
+            "patterns": [
+                {
+                    "name": "string.quoted.double.lambda",
+                    "match": "\"[^\"]*\""
+                }
+            ]
+        },
+        "builtins_classes": {
+            "patterns": [
+                {
+                    "name": "support.class.builtin.lambda",
+                    "match": "\\b(Calculate|Bottle|File|ClassesAndFunctionsAttributes)\\b"
+                }
+            ]
+        },
+        "builtins_functions": {
+            "patterns": [
+                {
+                    "name": "support.function.builtin.lambda",
+                    "match": "\\b(reg|fmt|num|string|boor|delete|getret|relter|step|listindex|dictionarykey|printe|inp|help|to|ListFunc|DictionaryFunc)\\b"
+                }
+            ]
+        },
+        "keywords": {
+            "patterns": [
+                {
+                    "name": "keyword.control.lambda",
+                    "match": "\\b(If|Elif|Else|While|For|into|perform|Try|Except|true|false|setitem)\\b"
+                }
+            ]
+        }
+    }
+}

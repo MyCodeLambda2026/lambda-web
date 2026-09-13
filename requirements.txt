@@ -1,0 +1,2 @@
+# Lambda‑customlang 运行无第三方pip依赖
+# 提示：Linux如需GUI，请系统安装 sudo apt install python3‑tk

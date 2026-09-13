@@ -1,117 +1,362 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lambda 编程语言 - 下载中心</title>
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lambda 编程语言 - 下载中心</title>
+<style>
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
         }
-        body{
-            background: #1a1a2e;
-            color: #eee;
-            font-family: "Microsoft YaHei", sans-serif;
-            text-align: center;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+body{
+background: #1a1a2e;
+color: #eee;
+font-family: "Microsoft YaHei", sans-serif;
+text-align: center;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+/* 删除 justify-content: center; 禁止整体垂直居中，允许页面向下滚动 */
+padding: 40px 20px;
         }
-        .content{
-            max-width: 650px;
-            width: 100%;
+.content{
+max-width: 650px;
+width: 100%;
         }
-        h1{
-            font-size: 42px;
-            margin-bottom: 15px;
-            color: #4fc3f7;
+h1{
+font-size: 42px;
+margin-bottom: 15px;
+color: #4fc3f7;
         }
-        .line{
-            border: 1px solid #444;
-            margin: 20px auto;
-            width: 80%;
+.line{
+border: 1px solid #444;
+margin: 20px auto;
+width: 80%;
         }
-        .desc{
-            font-size: 18px;
-            color: #ccc;
-            margin: 20px 0 30px;
-            line-height: 1.8;
+.desc{
+font-size: 18px;
+color: #ccc;
+margin: 20px 0 30px;
+line-height: 1.8;
         }
-        /* 模块标题 */
-        .module-title {
-            font-size: 22px;
-            color: #81d4fa;
-            margin: 40px 0 20px;
+/* 模块标题 */
+.module-title {
+font-size: 22px;
+color: #81d4fa;
+margin: 40px 0 20px;
         }
-        /* 通用下载按钮 */
-        .download-btn{
-            display: inline-block;
-            padding: 14px 28px;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 16px;
-            margin: 0 10px 20px;
-            transition: background 0.2s ease;
+/* 通用下载按钮 */
+.download-btn{
+display: inline-block;
+padding: 14px 28px;
+color: #fff;
+text-decoration: none;
+border-radius: 8px;
+font-size: 16px;
+margin: 0 10px 20px;
+transition: background 0.2s ease;
         }
-        /* APP 按钮样式（绿色） */
-        .app-btn {
-            background: #28a745;
+/* APP 按钮样式（绿色） */
+.app-btn {
+background: #28a745;
         }
-        .app-btn:hover{
-            background: #218838;
+.app-btn:hover{
+background: #218838;
         }
-        /* 源码按钮样式（蓝色） */
-        .source-btn {
-            background: #0288d1;
+/* 源码按钮样式（蓝色） */
+.source-btn {
+background: #0288d1;
         }
-        .source-btn:hover{
-            background: #0277bd;
+.source-btn:hover{
+background: #0277bd;
         }
-        .icon-img {
-            width: 48px;
-            height: 48px;
-            object-fit: contain;
-            margin: 15px auto;
+.icon-img {
+width: 48px;
+height: 48px;
+object-fit: contain;
+margin: 15px auto;
         }
-        .version {
-            color: #aaa;
-            margin-top: 20px;
-            line-height: 1.8;
-            font-size: 15px;
+.version {
+color: #aaa;
+margin-top: 20px;
+line-height: 1.8;
+font-size: 15px;
         }
-        .tip {
-            color: #888;
-            font-size: 14px;
-            margin-top: 10px;
+.tip {
+color: #888;
+font-size: 14px;
+margin-top: 10px;
         }
-    </style>
+/* 语法手册区块 */
+.manual-wrap{
+margin-top:60px;
+max-width:900px;
+width:100%;
+text-align:left;
+}
+.manual-wrap h2{
+color:#81d4fa;
+text-align:center;
+margin-bottom:20px;
+}
+pre{
+background:#0b0b18;
+color:#89ff89;
+padding:24px;
+border-radius:10px;
+overflow-x:auto;
+font-family:Consolas,Monospace;
+font-size:13px;
+white-space:pre;
+}
+</style>
 </head>
-
 <body>
-    <div class="content">
-        <h1>Lambda 编程语言</h1>
-        <div class="line"></div>
-        <p class="desc">自研轻量解释型语言<br>语法简洁 · 运行安全 · 完全开源</p>
-
-        <!-- 1. 客户端 APP 下载区 -->
-        <h2 class="module-title">客户端程序下载</h2>
-        <a href="lambda.zip" download class="download-btn app-btn">下载APP</a>
-        <a href="Lambda2026.zip" download class="download-btn app-btn">下载源代码</a>
-
-        <!-- 2. 开源源代码下载区 -->
-        <h2 class="module-title">开源源代码下载</h2>
-
-        <div class="version">
+<div class="content">
+<h1>Lambda 编程语言</h1>
+<div class="line"></div>
+<p class="desc">自研轻量解释型语言<br>语法简洁 · 运行安全 · 完全开源</p>
+<!-- 1. 客户端 APP 下载区 -->
+<h2 class="module-title">客户端程序下载</h2>
+<a href="lambda.zip" download class="download-btn app-btn">下载APP</a>
+<a href="/Users/ecowang/Desktop/lambda_code/Lambda2026/lambda-customlang.zip" download class="download-btn source-btn">下载源代码</a>
+<a href="/Users/ecowang/Desktop/lambda_code/Lambda2026/dist.zip" download class="download-btn app-btn">下载二进制文件</a>
+<a href="/Users/ecowang/Desktop/lambda_code/lambda-customlang/lambda-customlang-0.0.1.vsix.zip" download class="download-btn app-btn">VScode插件文件(.vsix)</a>
+<div class="version">
             当前版本: v0.0<br>
             内置 help() 函数，一键查看完整语法手册
-        </div>
-        <p class="tip">静态站点 · 永久免费托管于 GitHub Pages</p>
-    </div>
+</div>
+<p class="tip">静态站点 · 永久免费托管于 GitHub Pages</p>
+<h1>注意事项</h1>
+<p>
+    1.本编程语言既可以直接下载APP,又可以通过VScode下载相关插件(Lambda Language)编辑。<br>
+    2.本语言文件以.lmd为后缀。<br>
+    3.如果需要用VScode编辑,必须下载二进制文件,并按(Command + , ),搜索lambda-customlang.interpreterPath,并填写二进制文件位置。<br>
+    4.运行时在VScode的代码编辑页面右键,选第一个选项(已装插件)<br>
+    5.本插件只能通过.vsix文件手动下载。(EXTENSIONS-> ... ->Install from VSIX...)<br>
+    6.本APP暂时只支持MacOS,Windows和Linux仅支持下载插件。<br>
+    
+</p>
+</div>
+
+<div class="manual-wrap">
+<h2>Syntax Help</h2>
+<pre><code>Lambda Custom Language — Full Official Syntax Manual (English)
+Matches current compiler: || operator, >> comment, not‑in optimization.
+NOTE: Classes / classes keyword removed in current version.
+
+==================== Lambda Language Syntax Guide ====================
+
+1. Basic Rules
+All code blocks must use curly braces { }.
+{ and } must be paired. Unbalanced braces → error[11].
+Native Python keywords (like if, for, try) are forbidden.
+Comments start with >> (full‑line or inline).
+Semicolon ; is optional but recommended for assignment.
+
+2. Variable Assignment
+Syntax:
+variable setitem value;
+
+Example:
+a setitem 10;
+name setitem "Lambda";
+
+3. Output (Print)
+Syntax:
+printe content
+
+Example:
+printe 100
+printe "Hello World"
+printe a
+
+4. Conditionals
+If
+If condition do{
+    code
+}
+
+Elif
+Elif condition do{
+    code
+}
+
+Else
+Else do{
+    code
+}
+
+Full Example:
+If a <> 5 do{
+    printe "a equal to 5"
+}
+Elif a !- 3 do{
+    printe "a not equal to 3"
+}
+Else do{
+    printe "other branch"
+}
+
+5. Loops
+While Loop
+While condition do{
+    code
+}
+
+For Loop
+var For into iterable do{
+    code
+}
+
+Example:
+i For into reg(1,10) do{
+    printe i
+}
+
+6. Error Handling (Try / Except)
+Try{
+    risky code
+}
+Except{
+    handle error
+}
+
+Example:
+Try{
+    unknown_var setitem 10;
+}
+Except{
+    printe "Error caught"
+}
+
+7. Operators
+----------------------------------------------------------------------
+Your Syntax     Python Equivalent       Meaning
+----------------------------------------------------------------------
+a <> b          a == b                  equal
+a !- b          a != b                  not equal
+a -> b          a in b                  membership test
+a || b          a or b                  logical OR
+a & b           a and b                 logical AND
+&lt;!> a           not a                   logical NOT (prefix only)
+
+Note: To get "a not in b", write:  &lt;!> a -> b
+Compiler will optimize internally to Python "a not in b".
+
+8. Functions
+Define Function (no parameters)
+funcname perform{
+    code
+}
+
+Define Function (with parameter)
+funcname perform param{
+    code
+}
+
+Example:
+test perform{
+    printe "Hello from function"
+}
+
+9. Built‑in Functions
+----------------------------------------------------------------------
+Function        Usage                   Meaning
+----------------------------------------------------------------------
+reg(s, e)       reg(1,5)                numbers from 1 to 5
+inp(prompt)     inp("Enter: ")          get user input
+num(var)        num(a)                  convert to integer
+string(var)     string(a)               convert to string
+step(x)         step(list)              get length
+fmt(a,b,c)      fmt("[",a,"]")          format string
+help()          help()                  open help window
+
+10. List & Dictionary Tools
+listindex(list, index)    → get item
+dictionarykey(dict, key)  → get value
+Bottle.lists(data)        → convert to list
+Bottle.dictionary(data)   → convert to dict
+
+11. Comments
+>> This is full‑line comment
+a setitem 10; >> This is inline comment
+
+12. Complete Error Code List
+0:   BaseException
+1:   Exception
+11:  SyntaxError
+12:  IndentationError
+13:  TabError
+21:  NameError
+22:  UnboundLocalError
+23:  AttributeError
+31:  TypeError
+32:  ValueError
+33:  UnicodeError
+34:  UnicodeDecodeError
+35:  UnicodeEncodeError
+36:  UnicodeTranslateError
+41:  IndexError
+42:  KeyError
+43:  LookupError
+51:  ZeroDivisionError
+52:  OverflowError
+53:  FloatingPointError
+61:  StopIteration
+62:  StopAsyncIteration
+71:  OSError
+72:  FileNotFoundError
+73:  FileExistsError
+74:  IsADirectoryError
+75:  NotADirectoryError
+76:  PermissionError
+77:  TimeoutError
+78:  IOError
+81:  ImportError
+82:  ModuleNotFoundError
+91:  RuntimeError
+92:  NotImplementedError
+93:  RecursionError
+101: MemoryError
+102: BufferError
+103: EnvironmentError
+104: SystemError
+111: AssertionError
+112: EOFError
+113: ReferenceError
+
+13. Full Example Program
+>> Demo program
+a setitem 10;
+If a <> 10 do{
+    printe "a is 10"
+}
+Else do{
+    printe "a is not 10"
+}
+
+Try{
+    b setitem c;
+}
+Except{
+    printe "Error handled"
+}
+
+i For into reg(1,3) do{
+    printe i
+}
+
+>> logic demo
+If &lt;!> a -> arr || a & b <> 20 do{
+    printe "logic test passed"
+}
+======================================================================
+</code></pre>
+</div>
+
 </body>
 </html>

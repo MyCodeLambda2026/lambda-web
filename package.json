@@ -1,0 +1,85 @@
+{
+  "name": "lambda-customlang",
+  "displayName": "Lambda Language",
+  "version": "0.0.1",
+  "description": "Lambda Custom Language: syntax highlight & run command",
+  "publisher": "mycodelambda2026",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onLanguage:lambda"
+  ],
+  "contributes": {
+    "configurationDefaults": {
+      "[lambda]": {
+        "editor.autoIndent": "full",
+        "editor.formatOnType": true
+      }
+    },
+    "configuration": {
+      "title": "Lambda Language",
+      "properties": {
+        "lambda-customlang.interpreterPath": {
+          "type": "string",
+          "default": "",
+          "description": "Lambda解释器二进制完整路径（CLI裸二进制，不要填.app）"
+        }
+      }
+    },
+    "languages": [
+      {
+        "id": "lambda",
+        "aliases": ["Lambda","lambda language"],
+        "extensions": [".lmd"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "lambda",
+        "scopeName": "source.lambda",
+        "path": "./syntaxes/lambda.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "lambda-customlang.runLambda",
+        "title": "Lambda: Run current .lmd file"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "lambda-customlang.runLambda",
+          "label": "Lambda: Run current .lmd file",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "lambda-customlang.runLambda",
+          "label": "Lambda: Run current .lmd file",
+          "when": "editorLangId == lambda",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "files": [
+    "syntaxes/**",
+    "extension.js",
+    "language-configuration.json"
+  ]
+}

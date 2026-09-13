@@ -1,0 +1,66 @@
+name: Build Lambda Binary
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: # 网页上可以手动点按钮触发打包
+
+jobs:
+  # 构建 Windows x86_64 (真实Windows虚拟机，产出exe)
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install PyInstaller
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+
+      - name: PyInstaller 打包Windows
+        run: pyinstaller --noconfirm --onedir Lambda.py
+
+      - name: 压缩输出
+        run: Compress-Archive -Path dist -DestinationPath dist-windows-x86_64.zip
+
+      - name: 上传构建产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-x86_64
+          path: dist-windows-x86_64.zip
+
+  # 构建 Linux x86_64 (真实Ubuntu虚拟机)
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # 安装系统tk，防止构建时导入tkinter报错
+      - name: Install system python3-tk for build environment
+        run: sudo apt-get update && sudo apt-get install -y python3-tk
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install PyInstaller
+        run: |
+          python3 -m pip install --upgrade pip
+          pip3 install pyinstaller
+
+      - name: PyInstaller 打包Linux x86_64
+        run: pyinstaller --noconfirm --onedir Lambda.py
+
+      - name: Zip output
+        run: zip -r dist-linux-x86_64.zip dist
+
+      - name: 上传构建产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-x86_64
+          path: dist-linux-x86_64.zip
