@@ -1,0 +1,99 @@
+name: Build Lambda All Platforms
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-mac:
+    name: Build macOS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install PyInstaller
+        run: pip install pyinstaller
+
+      # Mac CLI 单文件二进制（VSCode插件调用，禁止--windowed）
+      - name: Build Mac CLI single-file
+        run: pyinstaller --noconfirm --onefile Lambda.py
+
+      # Mac GUI .app包（普通用户双击GUI，加--windowed隐藏终端）
+      - name: Build Mac GUI App bundle
+        run: pyinstaller --noconfirm --onedir --windowed Lambda.py
+
+      # 上传 Mac CLI单文件，不打包zip archive: false
+      - name: Upload Mac-CLI binary
+        uses: actions/upload-artifact@v7
+        with:
+          path: dist/Lambda
+          archive: false
+          name: mac-cli-binary
+
+      # Mac .app是文件夹，不能关闭archive，自动zip
+      - name: Upload Mac-GUI Lambda.app
+        uses: actions/upload-artifact@v7
+        with:
+          path: dist/Lambda.app
+          name: mac-gui-app
+
+
+  build-windows:
+    name: Build Windows
+    needs: [ build-mac ]
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install PyInstaller
+        run: pip install pyinstaller
+
+      # Windows onefile 单exe，绝对不要 -w！保留控制台用于CLI
+      - name: Build Windows single-file exe
+        run: pyinstaller --noconfirm --onefile Lambda.py
+
+      # 直接上传exe，不打zip，学校机房直接下载exe
+      - name: Upload Windows exe
+        uses: actions/upload-artifact@v7
+        with:
+          path: dist/lambda.exe
+          archive: false
+          name: windows-exe
+
+
+  build-linux:
+    name: Build Linux
+    needs: [ build-mac ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install PyInstaller
+        run: pip install pyinstaller
+
+      # Linux单文件二进制，同时支持GUI / CLI
+      - name: Build Linux single-file binary
+        run: pyinstaller --noconfirm --onefile Lambda.py
+
+      - name: Upload Linux binary
+        uses: actions/upload-artifact@v7
+        with:
+          path: dist/Lambda
+          archive: false
+          name: linux-binary
