@@ -9,6 +9,7 @@ jobs:
   build-mac:
     name: Build macOS
     runs-on: macos-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
 
@@ -20,11 +21,9 @@ jobs:
       - name: Install PyInstaller
         run: pip install pyinstaller
 
-      # Mac CLI单文件，禁止--windowed
       - name: Build Mac CLI single-file
         run: pyinstaller --noconfirm --onefile Lambda.py
 
-      # Mac GUI app只能onedir文件夹包
       - name: Build Mac GUI App bundle
         run: pyinstaller --noconfirm --onedir --windowed Lambda.py
 
@@ -44,8 +43,8 @@ jobs:
 
   build-windows:
     name: Build Windows
-    needs: [ build-mac ]
     runs-on: windows-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
 
@@ -57,7 +56,6 @@ jobs:
       - name: Install PyInstaller
         run: pip install pyinstaller
 
-      # Windows onefile，无 -w
       - name: Build Windows single-file exe
         run: pyinstaller --noconfirm --onefile Lambda.py
 
@@ -71,8 +69,8 @@ jobs:
 
   build-linux:
     name: Build Linux
-    needs: [ build-mac ]
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
 
