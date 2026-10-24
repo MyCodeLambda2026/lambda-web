@@ -1,0 +1,76 @@
+name: Build Lambda binaries
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  linux:
+    name: Build Linux binary
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install build tools
+        run: python -m pip install --upgrade pip pyinstaller
+
+      - name: Build binary
+        run: python -m PyInstaller --clean --noconfirm lmdlang/Lambda.spec
+
+      - name: Rename binary
+        run: mv dist/Lambda dist/Lambda-linux-x86_64
+
+      - name: Verify output
+        run: file dist/Lambda-linux-x86_64
+
+      - name: Upload Linux binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: Lambda-linux-x86_64
+          path: dist/Lambda-linux-x86_64
+          if-no-files-found: error
+
+  windows:
+    name: Build Windows executable
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install build tools
+        run: python -m pip install --upgrade pip pyinstaller
+
+      - name: Build executable
+        run: python -m PyInstaller --clean --noconfirm lmdlang/Lambda.spec
+
+      - name: Verify output
+        shell: pwsh
+        run: |
+          if (-not (Test-Path dist/Lambda.exe)) {
+            throw "dist/Lambda.exe was not generated"
+          }
+          Get-Item dist/Lambda.exe
+
+      - name: Rename executable
+        shell: pwsh
+        run: Move-Item dist/Lambda.exe dist/Lambda-windows-x86_64.exe
+
+      - name: Upload Windows executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: Lambda-windows-x86_64
+          path: dist/Lambda-windows-x86_64.exe
+          if-no-files-found: error
